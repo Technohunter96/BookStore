@@ -1,0 +1,23 @@
+import { BOOKS_URL } from "../constants"
+import { apiSlice } from "./apiSlice"
+
+export const booksApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getBooks: builder.query({
+      query: () => ({
+        url: BOOKS_URL,
+      }),
+      providedTags: ["Book"],
+      keepUnusedDataFor: 5,
+    }),
+
+    getBookDetails: builder.query({
+      query: (bookId) => ({
+        url: `${BOOKS_URL}/${bookId}`,
+      }),
+      keepUnusedDataFor: 5,
+    }),
+  }),
+})
+
+export const { useGetBooksQuery, useGetBookDetailsQuery } = booksApiSlice
