@@ -23,4 +23,49 @@ const getBookById = asyncHandler(async (req, res) => {
   }
 })
 
-export { getBooks, getBookById }
+// @desc    Create a book
+// @route   POST /api/books
+// @access  Private/Admin
+const createBook = asyncHandler(async (req, res) => {
+  const book = new Book({
+    user: req.user._id,
+    title: "Sample title",
+    author: "Sample author",
+    published: 0,
+    genre: "Sample genre",
+    pages: 0,
+    image: "/images/sample.jpg",
+    description: "Sample description",
+  })
+
+  const createdBook = await book.save()
+  res.status(201).json(createdBook)
+})
+
+// @desc    Update a book
+// @route   PUT /api/books/:id
+// @access  Private/Admin
+const updateBook = asyncHandler(async (req, res) => {
+  const { title, author, published, genre, pages, image, description } =
+    req.body
+
+  const book = await Book.findById(req.params.id)
+
+  if (book) {
+    book.title = title
+    book.author = author
+    book.published = published
+    book.genre = genre
+    book.pages = pages
+    book.image = image
+    book.description = description
+
+    const updatedBook = await book.save()
+    res.json(updatedBook)
+  } else {
+    res.status(404)
+    throw new Error("Book not found")
+  }
+})
+
+export { getBooks, getBookById, createBook, updateBook }

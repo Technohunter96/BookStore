@@ -12,12 +12,16 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom"
+import PrivateRoute from "./components/PrivateRoute"
+import AdminRoute from "./components/AdminRoute"
 import HomeScreen from "./screens/HomeScreen"
 import BookScreen from "./screens/BookScreen"
 import FavoritesScreen from "./screens/FavoritesScreen"
 import LoginScreen from "./screens/LoginScreen"
 import RegisterScreen from "./screens/RegisterScreen"
 import ProfileScreen from "./screens/ProfileScreen"
+import BooksListScreen from "./screens/admin/BooksListScreen"
+import BookEditScreen from "./screens/admin/BookEditScreen"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,9 +30,16 @@ const router = createBrowserRouter(
       <Route path="/book/:id" element={<BookScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
-      {/* Private */}
-      <Route path="/favorites" element={<FavoritesScreen />} />
-      <Route path="/profile" element={<ProfileScreen />} />
+      {/* Private routes */}
+      <Route path="" element={<PrivateRoute />}>
+        <Route path="/favorites" element={<FavoritesScreen />} />
+        <Route path="/profile" element={<ProfileScreen />} />
+      </Route>
+      {/* Admin Routes */}
+      <Route path="" element={<AdminRoute />}>
+        <Route path="/admin/booklist" element={<BooksListScreen />} />
+        <Route path="/admin/book/:id/edit" element={<BookEditScreen />} />
+      </Route>
     </Route>
   )
 )

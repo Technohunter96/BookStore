@@ -17,7 +17,29 @@ export const booksApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 5,
     }),
+
+    createBook: builder.mutation({
+      query: () => ({
+        url: BOOKS_URL,
+        method: "POST",
+      }),
+      invalidatesTags: ["Book"],
+    }),
+
+    updateBook: builder.mutation({
+      query: (data) => ({
+        url: `${BOOKS_URL}/${data.bookId}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Book"],
+    }),
   }),
 })
 
-export const { useGetBooksQuery, useGetBookDetailsQuery } = booksApiSlice
+export const {
+  useGetBooksQuery,
+  useGetBookDetailsQuery,
+  useCreateBookMutation,
+  useUpdateBookMutation,
+} = booksApiSlice
