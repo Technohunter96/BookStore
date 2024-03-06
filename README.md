@@ -20,7 +20,7 @@ This is version 1.0 of the app, which uses Redux Toolkit.
 
 ## Features
 
-- Favorite books feature for signed-up users
+- Favorite books feature for signed-in users
 - Latest added books carousel
 - Book pagination
 - Book search feature
