@@ -25,6 +25,8 @@ This is version 1.0 of the app, which uses Redux Toolkit.
 - Book pagination
 - Book search feature
 - Admin book management
+  - Edit Books
+  - Create new book (+ Create Book -> Book Sample -> Edit Sample to make it your desired book) 
 - Database seeder (products & users)
 
 ## Usage
