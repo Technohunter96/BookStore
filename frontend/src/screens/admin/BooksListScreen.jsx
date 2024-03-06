@@ -54,7 +54,7 @@ const BooksListScreen = () => {
             className="btn-sm btn-success my-3"
             onClick={createBookHandler}
           >
-            <FaPlus /> Create Product
+            <FaPlus /> Create Book
           </Button>
         </Col>
       </Row>
