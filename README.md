@@ -42,7 +42,7 @@ NODE_ENV = development
 PORT = 5000
 MONGO_URI = your mongodb uri
 JWT_SECRET = 'abc123'
-PAGINATION_LIMIT = 8
+PAGE_SIZE = 8
 ```
 
 Change the JWT_SECRET and PAGINATION_LIMIT to what you want
