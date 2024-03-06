@@ -1,4 +1,4 @@
-# BookStore Platform
+# BookStore
 
 > Book database platform built with the MERN stack & Redux.
 
