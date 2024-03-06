@@ -1,11 +1,12 @@
-import { BOOKS_URL } from "../constants"
+import { BOOKS_URL, UPLOAD_URL } from "../constants"
 import { apiSlice } from "./apiSlice"
 
 export const booksApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getBooks: builder.query({
-      query: () => ({
+      query: ({ keyword, pageNumber }) => ({
         url: BOOKS_URL,
+        params: { keyword, pageNumber },
       }),
       providedTags: ["Book"],
       keepUnusedDataFor: 5,
@@ -34,6 +35,26 @@ export const booksApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Book"],
     }),
+
+    uploadBookImage: builder.mutation({
+      query: (data) => ({
+        url: `${UPLOAD_URL}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    deleteBook: builder.mutation({
+      query: (bookId) => ({
+        url: `${BOOKS_URL}/${bookId}`,
+        method: "DELETE",
+      }),
+    }),
+
+    getLatestBooks: builder.query({
+      query: () => `${BOOKS_URL}/latest`,
+      keepUnusedDataFor: 5,
+    }),
   }),
 })
 
@@ -42,4 +63,7 @@ export const {
   useGetBookDetailsQuery,
   useCreateBookMutation,
   useUpdateBookMutation,
+  useUploadBookImageMutation,
+  useDeleteBookMutation,
+  useGetLatestBooksQuery,
 } = booksApiSlice

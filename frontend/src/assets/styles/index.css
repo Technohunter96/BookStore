@@ -2,21 +2,20 @@ main {
   min-height: 80vh;
 }
 
-.book-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.card-body a {
+  text-decoration: none;
 }
 
 .book-title {
+  font-size: large;
   /* Set a fixed height */
-  height: 2, 5em;
+  height: 2, 5rem;
   /* Hide overflow content */
   overflow: hidden;
   /* Add ellipsis for long text (adding ... for long text)*/
   text-overflow: ellipsis;
   /* Prevent wrapping */
-  /* white-space: nowrap; */
+  white-space: nowrap;
 }
 
 table td,
@@ -34,7 +33,45 @@ table td img {
   position: absolute;
   width: 100%;
   left: 0;
+  top: 0;
   right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  height: 5.7rem;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-image {
+  max-height: 500px;
+  width: auto;
+  object-fit: cover;
+  padding: 2rem;
+  padding-bottom: 2.5rem;
+  margin-top: 5rem;
+  margin-left: 5rem;
+}
+
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .book-img {
+    max-height: 450px;
+    max-width: fit-content;
+    object-fit: fill;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .book-img {
+    max-height: 400px;
+    max-width: fit-content;
+    object-fit: fill;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 1200px) {
+  .book-img {
+    max-height: 350px;
+    object-fit: fill;
+    overflow: hidden;
+  }
 }

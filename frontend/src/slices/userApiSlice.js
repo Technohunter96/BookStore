@@ -26,11 +26,30 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    getProfile: builder.query({
+      query: () => `${USERS_URL}/profile`,
+      keepUnusedDataFor: 5,
+    }),
+
     profile: builder.mutation({
       query: (data) => ({
         url: `${USERS_URL}/profile`,
         method: "PUT",
         body: data,
+      }),
+    }),
+
+    addToFavorites: builder.mutation({
+      query: ({ userId, bookId }) => ({
+        url: `${USERS_URL}/${userId}/favoriteBooks/${bookId}`,
+        method: "POST",
+      }),
+    }),
+
+    removeFromFavorites: builder.mutation({
+      query: ({ userId, bookId }) => ({
+        url: `${USERS_URL}/${userId}/favoriteBooks/${bookId}`,
+        method: "DELETE",
       }),
     }),
   }),
@@ -41,4 +60,7 @@ export const {
   useLogoutMutation,
   useRegisterMutation,
   useProfileMutation,
+  useGetProfileQuery,
+  useAddToFavoritesMutation,
+  useRemoveFromFavoritesMutation,
 } = usersApiSlice

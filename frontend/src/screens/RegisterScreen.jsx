@@ -91,7 +91,7 @@ const RegisterScreen = () => {
         <Button
           type="submit"
           variant="primary"
-          className="btn-dark mt-2"
+          className="btn-light mt-2"
           disabled={isLoading}
         >
           Sign Up

@@ -8,6 +8,7 @@ import { toast } from "react-toastify"
 import {
   useGetBookDetailsQuery,
   useUpdateBookMutation,
+  useUploadBookImageMutation,
 } from "../../slices/booksApiSlice"
 
 const BookEditScreen = () => {
@@ -29,6 +30,9 @@ const BookEditScreen = () => {
   } = useGetBookDetailsQuery(bookId)
 
   const [updateBook, { isLoading: loadingUpdate }] = useUpdateBookMutation()
+
+  const [uploadBookImage, { isLoading: loadingUpload }] =
+    useUploadBookImageMutation()
 
   const navigate = useNavigate()
 
@@ -65,9 +69,21 @@ const BookEditScreen = () => {
     }
   }, [book])
 
+  const uploadFileHandler = async (e) => {
+    const formData = new FormData()
+    formData.append("image", e.target.files[0])
+    try {
+      const res = await uploadBookImage(formData).unwrap()
+      toast.success(res.message)
+      setImage(res.image)
+    } catch (err) {
+      toast.error(err?.data?.message || err.error)
+    }
+  }
+
   return (
     <>
-      <Link to="/admin/booklist" className="btn btn-dark my-3">
+      <Link to="/admin/booklist" className="btn btn-light my-3">
         Go Back
       </Link>
 
@@ -142,7 +158,23 @@ const BookEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
-            {/* IMAGE INPUT PLACE HOLDER */}
+            <Form.Group controlId="image">
+              <Form.Label className="font-weight-bold">
+                <strong>Image</strong>
+              </Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter image URL"
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+              ></Form.Control>
+              <Form.Control
+                type="file"
+                label="Choose file"
+                onChange={uploadFileHandler}
+              ></Form.Control>
+              {loadingUpload && <Loader />}
+            </Form.Group>
 
             <Form.Group controlId="description">
               <Form.Label>
@@ -157,7 +189,7 @@ const BookEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Button type="submit" variant="dark" style={{ marginTop: "1rem" }}>
+            <Button type="submit" variant="light" style={{ marginTop: "1rem" }}>
               Update
             </Button>
           </Form>

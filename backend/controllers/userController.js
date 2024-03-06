@@ -1,6 +1,5 @@
 import asyncHandler from "../middleware/asyncHandler.js"
 import User from "../models/userModel.js"
-import jwt from "jsonwebtoken"
 import generateToken from "../utils/generateToken.js"
 
 // @desc    Auth user (login) & get token
@@ -80,6 +79,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      favoriteBooks: user.favoriteBooks,
     })
   } else {
     res.status(404)
@@ -115,10 +115,42 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Add book to favorites
+// @route   POST /api/users/:id/favoriteBooks/:bookId
+// @access  Private
+const addToFavorites = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id)
+
+  if (user) {
+    await user.addToFavorites(req.params.bookId)
+    res.status(200).json({ message: "Book added to favorites" })
+  } else {
+    res.status(404)
+    throw new Error("User not found")
+  }
+})
+
+// @desc    Remove book from favorites
+// @route   DELETE /api/users/:id/favoriteBooks/:bookId
+// @access  Private
+const removeFromFavorites = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id)
+
+  if (user) {
+    await user.removeFromFavorites(req.params.bookId)
+    res.status(200).json({ message: "Book removed from favorites" })
+  } else {
+    res.status(404)
+    throw new Error("User not found")
+  }
+})
+
 export {
   loginUser,
   registerUser,
   logoutUser,
   getUserProfile,
   updateUserProfile,
+  addToFavorites,
+  removeFromFavorites,
 }

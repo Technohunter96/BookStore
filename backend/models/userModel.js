@@ -49,9 +49,24 @@ userSchema.pre("save", async function (next) {
   this.password = bcrypt.hashSync(this.password, salt)
 })
 
-//// Custom method that will take entered password and compare it with hashed password in database, when we create it in userSchema we can then apply it on user object
+// Custom method that will take entered password and compare it with hashed password in database, when we create it in userSchema we can then apply it on user object
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password)
+}
+// Custom method than will add book to favoriteBooks array
+userSchema.methods.addToFavorites = async function (bookId) {
+  if (!this.favoriteBooks.includes(bookId)) {
+    this.favoriteBooks.push(bookId)
+    await this.save()
+  }
+}
+
+// Custom method than will remove book from favoriteBooks array
+userSchema.methods.removeFromFavorites = async function (bookId) {
+  this.favoriteBooks = this.favoriteBooks.filter(
+    (id) => id.toString() !== bookId.toString()
+  )
+  await this.save()
 }
 
 const User = mongoose.model("User", userSchema)

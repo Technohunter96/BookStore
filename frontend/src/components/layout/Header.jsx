@@ -3,12 +3,12 @@ import { FaBook, FaUser } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
 import { LinkContainer } from "react-router-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
-import { useLogoutMutation } from "../slices/userApiSlice"
-import { logout } from "../slices/authSlice"
-import logo from "../assets/logo.png"
+import { useLogoutMutation } from "../../slices/userApiSlice"
+import { logout } from "../../slices/authSlice"
+import SearchBox from "../SearchBox"
+import logo from "../../assets/logo.png"
 
 const Header = () => {
-  const { favoriteItems } = useSelector((state) => state.favorite)
   const { userInfo } = useSelector((state) => state.auth)
 
   const dispatch = useDispatch()
@@ -28,7 +28,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
+      <Navbar bg="black" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>
@@ -38,20 +38,25 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <LinkContainer to="/favorites">
-                <Nav.Link>
-                  <FaBook /> Favorites
-                </Nav.Link>
-              </LinkContainer>
+              {/* Search Box */}
+              <SearchBox />
+
               {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
-                  <LinkContainer to="/profile">
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                <>
+                  <LinkContainer to="/favorites">
+                    <Nav.Link>
+                      <FaBook /> Favorites
+                    </Nav.Link>
                   </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
+                  <NavDropdown title={userInfo.name} id="username">
+                    <LinkContainer to="/profile">
+                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Item onClick={logoutHandler}>
+                      Logout
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </>
               ) : (
                 <LinkContainer to="/login">
                   <Nav.Link href="/login">
@@ -63,7 +68,7 @@ const Header = () => {
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title="Admin" id="adminmenu">
                   <LinkContainer to="/admin/booklist">
-                    <NavDropdown.Item>Books</NavDropdown.Item>
+                    <NavDropdown.Item>Book List</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
               )}

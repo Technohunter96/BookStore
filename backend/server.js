@@ -21,13 +21,16 @@ app.use(express.urlencoded({ extended: true }))
 // Cookie parser middleware
 app.use(cookieParser())
 
+// Routes
 app.use("/api/books", bookRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/upload", uploadRoutes)
 
+// Uploads folder
 const __dirname = path.resolve()
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
 
+// Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/build")))
 
@@ -40,6 +43,7 @@ if (process.env.NODE_ENV === "production") {
   })
 }
 
+// Error middleware
 app.use(notFound)
 app.use(errorHandler)
 
