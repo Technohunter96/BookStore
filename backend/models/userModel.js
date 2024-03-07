@@ -53,7 +53,7 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password)
 }
-// Custom method than will add book to favoriteBooks array
+// Custom method than will add bookId to favoriteBooks array
 userSchema.methods.addToFavorites = async function (bookId) {
   if (!this.favoriteBooks.includes(bookId)) {
     this.favoriteBooks.push(bookId)
