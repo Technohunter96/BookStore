@@ -20,7 +20,7 @@ This is version 1.0 of the app, which uses Redux Toolkit.
 
 ## Features
 
-- Favorite books feature for signed-up users
+- Favorite books feature for signed-in users
 - Latest added books carousel
 - Book pagination
 - Book search feature
@@ -42,7 +42,7 @@ NODE_ENV = development
 PORT = 5000
 MONGO_URI = your mongodb uri
 JWT_SECRET = 'abc123'
-PAGINATION_LIMIT = 8
+PAGE_SIZE = 8
 ```
 
 Change the JWT_SECRET and PAGINATION_LIMIT to what you want
