@@ -2,6 +2,8 @@
 
 > Book database platform built with the MERN stack & Redux.
 
+<img src="./frontend/public/images/screens.png">
+
 This is version 1.0 of the app, which uses Redux Toolkit.
 
 <!-- toc -->
