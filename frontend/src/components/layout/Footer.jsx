@@ -1,9 +1,9 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  const github = process.env.GITHUB;
+
   return (
     <footer>
       <Container>
